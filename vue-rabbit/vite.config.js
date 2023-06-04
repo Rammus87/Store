@@ -1,5 +1,4 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -17,12 +16,25 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        //1.配置elementPlus採用sass樣式配色系統
+        ElementPlusResolver({ importStyle: "sass" }),
+      ],
     }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  css:{
+    preprocessorOptions:{
+      scss:{
+        //2.自動導入定制化樣式覆蓋
+        additionalData:`
+        @use "@/styles/element/index.scss" as *;
+        `,
+      }
     }
   }
 })
