@@ -7,7 +7,7 @@
         <div class="container">
             <ul>
                 <template v-if="true">
-                    <li><a href="javascript:;"><i class="iconfont icon-user"></i>周杰倫</a></li>
+                    <li><a href="javascript:;"><i class="iconfont icon-user"></i>陳穎川</a></li>
                     <li>
                         <el-popconfirm title="確認退出嗎？" confirm-button-text="確認" concel-button="取消">
                             <template #reference>
