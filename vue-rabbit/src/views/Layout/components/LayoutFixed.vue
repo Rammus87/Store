@@ -1,44 +1,26 @@
 <script setup>
 //vueUse
 import { useScroll } from '@vueuse/core'
+//使用pinia中的數據導入
+import { useCategoryStore } from '@/stores/category'
 const { y } = useScroll(window)
+
+//使用pinia的數據
+const categoryStore = useCategoryStore();
+
 </script>
 
 <template>
     <div class="app-header-sticky" :class="{show: y > 78}">
         <div class="container">
-            <RouterLink class="logo" to="/" />
+        <RouterLink class="logo" to="/" />
             <!-- nav區域 -->
             <ul class="app-header-nav">
                 <li class="home">
                     <RouterLink to="/">首頁</RouterLink>
                 </li>
-                <li>
-                    <RouterLink to="/">居家</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">美食</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">服飾</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">母嬰</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">個護</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">嚴選</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">數碼</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">運動</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">雜項</RouterLink>
+                <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
+                    <RouterLink to="/">{{ item.name }}</RouterLink>
                 </li>
             </ul>
             <div class="right">
@@ -102,7 +84,7 @@ const { y } = useScroll(window)
     }   
 }
 
-.app.header-nav{
+.app-header-nav{
     width: 820px;
     display: flex;
     padding-left: 40px;
