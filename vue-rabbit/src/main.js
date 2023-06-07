@@ -9,12 +9,6 @@ import router from './router'
 //引入css
 import '@/styles/common.scss'
 
-//測試接口函數
-import { getCategory } from "@/apis/testAPI"
-getCategory().then(res => {
-    console.log(res)
-})
-
 const app = createApp(App)
 
 app.use(createPinia())

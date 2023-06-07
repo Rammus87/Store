@@ -19,7 +19,7 @@
                 </dl>
                 <dl>
                     <dt>下載APP</dt>
-                    <dd class="qrcode"><img src="" alt="掃碼" /></dd>
+                    <dd class="qrcode"><img src="@/assets/images/qrcode.jpg" alt="掃碼" /></dd>
                     <dd class="download">
                         <span>掃描二維碼</span>
                         <span>立即下載APP</span>
