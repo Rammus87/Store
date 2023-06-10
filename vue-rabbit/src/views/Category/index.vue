@@ -3,6 +3,8 @@
     import { onMounted, ref } from 'vue'
     //獲取路由參數
     import { useRoute } from 'vue-router'
+    import { getBannerAPI } from '@/apis/home';
+    //獲取banner
 
     //獲取數據
     const categoryData = ref({})
@@ -12,6 +14,19 @@
         categoryData.value = res.result
     }
     onMounted(()=>getCategory())
+
+    //獲取banner
+    const bannerList = ref([])
+    const getBanner = async ()=>{
+    const res = await getBannerAPI({
+        distributionSite: '2'
+    })
+    console.log(res)
+    //獲取響應式list
+    bannerList.value = res.result
+}
+
+    onMounted(()=>getBanner())
 </script>
 
 <template>
@@ -24,6 +39,14 @@
           <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
+      <!-- 輪播圖 -->
+  <div class="home-banner">
+    <el-carousel height="500px">
+      <el-carousel-item v-for="item in bannerList" :key="item.id">
+        <img :src="item.imgUrl" alt="">
+      </el-carousel-item>
+    </el-carousel>
+  </div>
     </div>
   </div>
 </template>
@@ -105,5 +128,16 @@
   .bread-container {
     padding: 25px 0;
   }
+}
+
+.home-banner{
+    width: 1240px;
+    height: 500px;
+    margin: 0 auto;
+
+    img{
+        width: 100%;
+        height: 500px;
+    }
 }
 </style>
