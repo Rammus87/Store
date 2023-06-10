@@ -23,7 +23,8 @@ const router = createRouter({
         component: Home
       },
       {
-        path:'category',
+        //配置分類參數
+        path:'category/:id',
         component: Category
       }
     ]
