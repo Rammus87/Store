@@ -17,6 +17,7 @@ onMounted(()=>categoryStore.getCategory())
     <LayoutFixed />
     <LayoutNav />
     <LayoutHeader />
+    <!-- 添加key 破壞複用機制 重新更新-->
     <RouterView />
     <LayoutFooter />
 </template>

@@ -3,18 +3,26 @@
     import { onMounted, ref } from 'vue'
     //獲取路由參數
     import { useRoute } from 'vue-router'
-    import { getBannerAPI } from '@/apis/home';
+    import { getBannerAPI } from '@/apis/home'
     import  GoodsItem from '@/views/Home/components/GoodItem.vue'
+    import { onBeforeRouteUpdate } from 'vue-router'
     //獲取banner
 
     //獲取數據
     const categoryData = ref({})
     const route = useRoute()
-    const getCategory = async()=>{
-        const res = await getCategoryAPI(route.params.id)
+    const getCategory = async(id = route.params.id)=>{
+        const res = await getCategoryAPI(id)
         categoryData.value = res.result
     }
     onMounted(()=>getCategory())
+
+    //目標:路由參數變化的時候,重新發送分類接口
+    onBeforeRouteUpdate((to)=>{
+        console.log('路由變化了')
+        //存在一個問題,使用最新路由參數,請求最新分類數據
+        getCategory(to.params.id)
+    })
 
     //獲取banner
     const bannerList = ref([])
