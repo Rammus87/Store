@@ -1,41 +1,11 @@
 <script setup>
-    import { getCategoryAPI } from '@/apis/category'
-    import { onMounted, ref } from 'vue'
-    //獲取路由參數
-    import { useRoute } from 'vue-router'
-    import { getBannerAPI } from '@/apis/home'
     import  GoodsItem from '@/views/Home/components/GoodItem.vue'
-    import { onBeforeRouteUpdate } from 'vue-router'
+    //引入拆分後的useBanner
+    import { useBanner } from './composables/useBanner'
+    import { useCategory } from './composables/useCategory'
     //獲取banner
-
-    //獲取數據
-    const categoryData = ref({})
-    const route = useRoute()
-    const getCategory = async(id = route.params.id)=>{
-        const res = await getCategoryAPI(id)
-        categoryData.value = res.result
-    }
-    onMounted(()=>getCategory())
-
-    //目標:路由參數變化的時候,重新發送分類接口
-    onBeforeRouteUpdate((to)=>{
-        console.log('路由變化了')
-        //存在一個問題,使用最新路由參數,請求最新分類數據
-        getCategory(to.params.id)
-    })
-
-    //獲取banner
-    const bannerList = ref([])
-    const getBanner = async ()=>{
-    const res = await getBannerAPI({
-        distributionSite: '2'
-    })
-    console.log(res)
-    //獲取響應式list
-    bannerList.value = res.result
-}
-
-    onMounted(()=>getBanner())
+    const { bannerList } = useBanner()
+    const { categoryData } = useCategory()
 </script>
 
 <template>
