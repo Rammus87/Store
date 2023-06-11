@@ -7,6 +7,7 @@ import Layout from '@/views/Layout/index.vue'
 //導入二級路徑home和category
 import Home from '@/views/Home/index.vue'
 import Category from '@/views/Category/index.vue'
+import SubCategory from '@/views/SubCategory/index.vue'
 
 
 const router = createRouter({
@@ -26,6 +27,10 @@ const router = createRouter({
         //配置分類參數
         path:'category/:id',
         component: Category
+      },
+      {
+        path:'category/sub/:id',
+        component: SubCategory
       }
     ]
    },
