@@ -26,7 +26,27 @@ const getGoodList = async() => {
     goodList.value = res.result.items
 }
 onMounted(()=>getGoodList())
+//tab切換回調
+const tabChange = () => {
+    console.log('tab切換了',reqDate.value.sortField)
+    reqDate.value.page = 1
+    getGoodList()
+}
 
+//加載更多
+const disabled = ref(false)
+const load = async()=>{
+    console.log("加載更多數據完成")
+    //獲取下一頁數據
+    reqDate.value.page++
+    const res = await getSubCategoryAPI(reqDate.value)
+    goodList.value = [...goodList.value,...res.result.items]
+    // 加載完畢,停止監聽
+    if(res.result.items.length === 0){
+        console.log("沒有數據了")
+        disabled.value = true
+    }
+}
 </script>
 
 <template>
@@ -34,19 +54,19 @@ onMounted(()=>getGoodList())
     <!-- 面包屑 -->
     <div class="bread-container">
       <el-breadcrumb separator=">">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: `/category/${categoryData.parentId}` }">{{ categoryData.parentName }}
         </el-breadcrumb-item>
         <el-breadcrumb-item>{{categoryData.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="reqDate.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
          <!-- 商品列表-->
          <GoodsItem v-for="goods in goodList" :goods="goods" :key="goods.id"/>
       </div>

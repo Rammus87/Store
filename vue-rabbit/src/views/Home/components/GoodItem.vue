@@ -2,7 +2,7 @@
     //定義props參數
     defineProps({
         goods:{
-            tppe:Object,
+            type:Object,
             default:()=>{}
         }
     })
