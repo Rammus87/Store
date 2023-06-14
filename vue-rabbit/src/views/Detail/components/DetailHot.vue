@@ -1,7 +1,7 @@
 <script setup>
  //獲取24小時數據渲染
   import {getHotGoodsAPI} from '@/apis/detail'
-import { computed } from '@vue/reactivity';
+  import { computed } from '@vue/reactivity';
   import {onMounted, ref} from 'vue'
   import { useRoute } from 'vue-router';
   //設計porps參數 是配不同title

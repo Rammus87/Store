@@ -4,6 +4,8 @@ import { onMounted,ref } from 'vue';
 import { useRoute } from 'vue-router';
 //引入DetailHot.vue
 import DetailHot from '@/views/Detail/components/DetailHot.vue'
+//引入imgview組件
+import ImageView from '@/components/ImageView/index.vue'
 
 const goods = ref({})
 const route = useRoute ()
@@ -35,7 +37,7 @@ onMounted(()=>getGoods())
             <div class="goods-info">
               <div class="media">
                 <!-- 图片預覽區 -->
-  
+                <ImageView />
                 <!-- 統計區 -->
                 <ul class="goods-sales">
                   <li>
