@@ -4,8 +4,6 @@ import { onMounted,ref } from 'vue';
 import { useRoute } from 'vue-router';
 //引入DetailHot.vue
 import DetailHot from '@/views/Detail/components/DetailHot.vue'
-//引入imgview組件
-import ImageView from '@/components/ImageView/index.vue'
 
 const goods = ref({})
 const route = useRoute ()
@@ -15,6 +13,11 @@ const getGoods = async ()=>{
 }
 
 onMounted(()=>getGoods())
+
+//sku規格被操作時
+const skuChange = (sku) =>{
+  console.log(sku)
+}
 </script>
 
 <template>
@@ -36,8 +39,8 @@ onMounted(()=>getGoods())
           <div>
             <div class="goods-info">
               <div class="media">
-                <!-- 图片預覽區 -->
-                <ImageView />
+                <!-- 圖片預覽區 -->
+                <ImageView :image-list="goods.mainPictures"/>
                 <!-- 統計區 -->
                 <ul class="goods-sales">
                   <li>
@@ -86,7 +89,7 @@ onMounted(()=>getGoods())
                   </dl>
                 </div>
                 <!-- sku组件 -->
-  
+                <XtxSku :goods="goods" @change="skuChange"/>
                 <!-- 数据组件 -->
   
                 <!-- 按钮组件 -->

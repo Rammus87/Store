@@ -14,12 +14,16 @@ import '@/styles/common.scss'
 //引入懶加載指令
 import { lazyPlugin } from '@/directives'
 
+//引入全局組件
+import { componentPlugin } from './components'
+
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(lazyPlugin)
+app.use(componentPlugin)
 
 app.mount('#app')
 
