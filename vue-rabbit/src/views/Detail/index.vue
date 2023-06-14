@@ -2,6 +2,8 @@
 import {getDetail} from '@/apis/detail'
 import { onMounted,ref } from 'vue';
 import { useRoute } from 'vue-router';
+//引入DetailHot.vue
+import DetailHot from '@/views/Detail/components/DetailHot.vue'
 
 const goods = ref({})
 const route = useRoute ()
@@ -32,7 +34,7 @@ onMounted(()=>getGoods())
           <div>
             <div class="goods-info">
               <div class="media">
-                <!-- 图片预览区 -->
+                <!-- 图片預覽區 -->
   
                 <!-- 統計區 -->
                 <ul class="goods-sales">
@@ -114,9 +116,12 @@ onMounted(()=>getGoods())
                   </div>
                 </div>
               </div>
-              <!-- 24热榜+专题推荐 -->
+              <!-- 24熱榜+專題推薦 -->
               <div class="goods-aside">
-  
+                <!-- 24小時 -->
+                <DetailHot :hot-type="1"/>
+                <!-- 週 -->
+                <DetailHot :hot-type="2"/>
               </div>
             </div>
           </div>
