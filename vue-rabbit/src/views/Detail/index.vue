@@ -40,7 +40,7 @@ const skuChange = (sku) =>{
             <div class="goods-info">
               <div class="media">
                 <!-- 圖片預覽區 -->
-                <ImageView :image-list="goods.mainPictures"/>
+                <XtxImageView :image-list="goods.mainPictures"/>
                 <!-- 統計區 -->
                 <ul class="goods-sales">
                   <li>
