@@ -1,5 +1,37 @@
 <script setup>
+import {ref} from 'vue'
+//表單驗證功能(帳號+密碼)
+// 1.準備表單對象
+const form = ref({
+    account:'',
+    password:'',
+    agree: true
+})
 
+// 2.規則對象
+const rules = {
+    account:[
+        {required: true, message:'用戶名不能為空', trigger: 'blur'}
+    ],
+    password:[
+        {required: true, message:'密碼不能為空', trigger: 'blur'},
+        {min:6, max:14, message:"密碼長度應為6-14", trigger: 'blur'}
+    ],
+    //勾選框
+    agree:[
+        {
+            validator:(rule,value,callback)=>{
+                console.log(value)
+                //自定義邏輯
+                if(value){
+                    callback()
+                }else{
+                    callback(new Error('請勾選同意規則'))
+                }
+            }
+        }
+    ]
+}
 </script>
 
 
@@ -11,7 +43,7 @@
           <RouterLink to="/">小兔鲜</RouterLink>
         </h1>
         <RouterLink class="entry" to="/">
-          进入网站首页
+          進入首頁
           <i class="iconfont icon-angle-right"></i>
           <i class="iconfont icon-angle-right"></i>
         </RouterLink>
@@ -20,24 +52,24 @@
     <section class="login-section">
       <div class="wrapper">
         <nav>
-          <a href="javascript:;">账户登录</a>
+          <a href="javascript:;">帳號登入</a>
         </nav>
         <div class="account-box">
           <div class="form">
-            <el-form label-position="right" label-width="60px"
+            <el-form :model="form" :rules="rules" label-position="right" label-width="60px"
               status-icon>
-              <el-form-item  label="账户">
-                <el-input/>
+              <el-form-item prop="account" label="帳號">
+                <el-input v-model="form.account" />
               </el-form-item>
-              <el-form-item label="密码">
-                <el-input/>
+              <el-form-item prop="password" label="密碼">
+                <el-input v-model="form.password" />
               </el-form-item>
-              <el-form-item label-width="22px">
-                <el-checkbox  size="large">
-                  我已同意隐私条款和服务条款
+              <el-form-item prop="agree" label-width="22px">
+                <el-checkbox  size="large" v-model="form.agree" >
+                  我同意隱私和服務規則
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn">登入</el-button>
             </el-form>
           </div>
         </div>
@@ -47,15 +79,15 @@
     <footer class="login-footer">
       <div class="container">
         <p>
-          <a href="javascript:;">关于我们</a>
-          <a href="javascript:;">帮助中心</a>
-          <a href="javascript:;">售后服务</a>
-          <a href="javascript:;">配送与验收</a>
-          <a href="javascript:;">商务合作</a>
-          <a href="javascript:;">搜索推荐</a>
-          <a href="javascript:;">友情链接</a>
+          <a href="javascript:;">關於我們</a>
+          <a href="javascript:;">幫助中心</a>
+          <a href="javascript:;">售後服務</a>
+          <a href="javascript:;">配送與驗收</a>
+          <a href="javascript:;">商務合作</a>
+          <a href="javascript:;">搜索推薦</a>
+          <a href="javascript:;">友情連結</a>
         </p>
-        <p>CopyRight &copy; 小兔鲜儿</p>
+        <p>CopyRight &copy; 小兔鮮兒</p>
       </div>
     </footer>
   </div>
