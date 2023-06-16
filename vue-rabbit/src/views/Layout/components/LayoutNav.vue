@@ -1,4 +1,19 @@
 <script setup>
+import { useUserStore } from '@/stores/user'
+//引入跳轉方法
+import { useRouter } from 'vue-router';
+const router = useRouter()
+const userStore = useUserStore()
+
+//聲明回條函數comfirm
+const confirm = ()=>{
+    console.log("用戶要退出登入了")
+    //退出登入邏輯實現
+    //1.清除用戶信息,觸發action函數
+    userStore.clearUserInfo()
+    //2.跳轉到登入頁面
+    router.push('/login')
+}
 
 </script>
 
@@ -7,10 +22,11 @@
         <div class="container">
             <ul>
                 <!-- 多模板渲染,用來區分登錄狀態 -->
-                <template v-if="false">
-                    <li><a href="javascript:;"><i class="iconfont icon-user"></i>陳穎川</a></li>
+                <!-- 思路:登陸時顯示第一塊,非登陸時顯示第一塊 是否有token -->
+                <template v-if="userStore.userInfo.token">
+                    <li><a href="javascript:;"><i class="iconfont icon-user"></i> {{ userStore.userInfo.account }} </a></li>
                     <li>
-                        <el-popconfirm title="確認退出嗎？" confirm-button-text="確認" concel-button-text="取消">
+                        <el-popconfirm @confirm="confirm" title="確認退出嗎？" confirm-button-text="確認" concel-button-text="取消">
                             <template #reference>
                                 <a href="javascript:;">退出登錄</a>
                             </template>

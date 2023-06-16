@@ -17,14 +17,18 @@ import { lazyPlugin } from '@/directives'
 //引入全局組件
 import { componentPlugin } from './components'
 
+//引入pinia-plugin-persistedstate
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const app = createApp(App)
+const pinia = createPinia()
+//註冊持久化插件
+pinia.use(piniaPluginPersistedstate)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(lazyPlugin)
 app.use(componentPlugin)
-
 app.mount('#app')
 
 

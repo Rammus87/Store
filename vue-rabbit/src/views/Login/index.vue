@@ -1,10 +1,20 @@
 <script setup>
 import {ref} from 'vue'
+//導入form表單樣式
+import 'element-plus/theme-chalk/el-message.css'
+import { ElMessage } from 'element-plus'
+//引入登入路由
+import { useRouter } from 'vue-router'
+//引入store
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
+
+
 //表單驗證功能(帳號+密碼)
 // 1.準備表單對象
 const form = ref({
-    account:'',
-    password:'',
+    account:'heima282',
+    password:'hm#qd@23!',
     agree: true
 })
 
@@ -32,6 +42,32 @@ const rules = {
         }
     ]
 }
+
+//3.獲取form方法統一驗證
+const formRef = ref(null)
+const router = useRouter()
+const doLogin = ()=>{
+    //解構附值
+    const { account,password } = form.value
+    //調用方法
+    formRef.value.validate(async(valid)=>{
+        //valid 所有表單都驗證過,才為true
+        console.log(valid)
+        //以valid作為判斷條件,通過才執行登入邏輯
+        if(valid){
+            await userStore.getUserInfo({ account,password })
+            //1.提示用戶
+            ElMessage({type:'success', message:'登入成功'})
+            //2.跳轉頁面
+            router.replace({path:'/'})
+        }
+    })
+}
+
+//驗證步驟
+//1.用戶名和密碼 簡單配置(複雜功能可以通過多個不同組件拆解)
+//2.自定義驗證規則 (validator:(rule,value,callback)=>{})
+//3.統一驗證 (通過調用form方法 validate -> true)
 </script>
 
 
@@ -56,7 +92,7 @@ const rules = {
         </nav>
         <div class="account-box">
           <div class="form">
-            <el-form :model="form" :rules="rules" label-position="right" label-width="60px"
+            <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px"
               status-icon>
               <el-form-item prop="account" label="帳號">
                 <el-input v-model="form.account" />
@@ -69,7 +105,7 @@ const rules = {
                   我同意隱私和服務規則
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">登入</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">登入</el-button>
             </el-form>
           </div>
         </div>
