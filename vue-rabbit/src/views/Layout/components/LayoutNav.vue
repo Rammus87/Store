@@ -1,5 +1,5 @@
 <script setup>
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/stores/user.js'
 //引入跳轉方法
 import { useRouter } from 'vue-router';
 const router = useRouter()
