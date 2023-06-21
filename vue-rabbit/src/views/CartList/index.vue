@@ -27,10 +27,10 @@ const allCheck = (selected) => {
               <th width="120">
                 <el-checkbox :model-value="cartStore.isAll" @change="allCheck"/>
               </th>
-              <th width="400">商品信息</th>
-              <th width="220">单价</th>
-              <th width="180">数量</th>
-              <th width="180">小计</th>
+              <th width="400">商品資訊</th>
+              <th width="220">價格</th>
+              <th width="180">數量</th>
+              <th width="180">小計</th>
               <th width="140">操作</th>
             </tr>
           </thead>
@@ -90,7 +90,7 @@ const allCheck = (selected) => {
           <span class="red"> {{ cartStore.selectedPrice.toFixed(2) }} </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" >下单结算</el-button>
+          <el-button size="large" type="primary" @click="$router.push('/checkout')">結算</el-button>
         </div>
       </div>
     </div>
